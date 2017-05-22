@@ -1,0 +1,2 @@
+record_sensors:
+  python /home/homeassistant/.homeassistant/includes/shell_scripts/bamboo.py {{sensor01}}
