@@ -108,7 +108,7 @@ def Lynda():
     putValues(results,opRange,spreadsheet_id)
     opRange="'Overview'!F8"
     putValues([0],opRange,spreadsheet_id)
-        
+    lastResults=results    
     rowCount=1
     for row in values[1:]:
         selection=[row[0]]
@@ -121,10 +121,18 @@ def Lynda():
         putValues([results[3]-base_EC],opRange,spreadsheet_id)
         opRange="'Overview'!"+"G"+str(rownum)
         try:
-            carbon_payback=(base_AC-results[2])/(results[3]-base_EC)
+            carbon_payback=(results[3]-base_EC)/(base_AC-results[2])
         except ZeroDivisionError:
             carbon_payback="N/A"
         putValues([carbon_payback],opRange,spreadsheet_id)
+        
+        opRange="'Overview'!"+"H"+str(rownum)
+        try:
+            inc_carbon_payback=(results[3]-lastResults[3])/(lastResults[2]-results[2])
+        except ZeroDivisionError:
+            carbon_payback="N/A"
+        putValues([inc_carbon_payback],opRange,spreadsheet_id)
+        lastResults=results
         rowCount+=1
 
 #        HLP=float(getValues("SpaceHeating!HLP",spreadsheet_id)[0][0]) #heat loss parameter
